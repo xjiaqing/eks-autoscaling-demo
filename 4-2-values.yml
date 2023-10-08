@@ -1,0 +1,11 @@
+extraScrapeConfigs: |
+  - job_name: 'prometheus-node-exporter'
+    scrape_interval: 10s
+    kubernetes_sd_configs:
+      - role: node
+    relabel_configs:
+      - action: replace
+        source_labels: [__address__]
+        regex: '(.*):10250'
+        replacement: '${1}:9100'
+        target_label: __address__

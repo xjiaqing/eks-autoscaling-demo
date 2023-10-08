@@ -1,0 +1,48 @@
+##
+##   使用 eksctl 创建 eks 集群
+##
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: sin-eks-cluster
+  region: ap-southeast-1
+  version: "1.27"
+  tags:
+    karpenter.sh/discovery: sin-eks-cluster
+
+iam:
+  withOIDC: true
+
+karpenter:
+  version: "v0.30.0"
+  createServiceAccount: true
+  defaultInstanceProfile: "KarpenterNodeInstanceProfileInSinapore"
+  withSpotInterruptionQueue: true
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["audit", "authenticator", "controllerManager"]
+
+addons:
+  - name: vpc-cni
+    attachPolicyARNs:
+      - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+  - name: coredns
+  - name: kube-proxy
+  - name: aws-efs-csi-driver
+  - name: aws-ebs-csi-driver
+    wellKnownPolicies:
+      ebsCSIController: true
+
+vpc:
+  clusterEndpoints:
+    publicAccess: true
+    privateAccess: true
+
+managedNodeGroups:
+  - name: applications
+    instanceType: c5.large
+    amiFamily: AmazonLinux2
+    desiredCapacity: 3
+    privateNetworking: true

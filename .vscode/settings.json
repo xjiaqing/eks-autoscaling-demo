@@ -1,0 +1,6 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/kustomization.json": "file:///Users/xjiaqing/Library/CloudStorage/WorkDocsDrive-Documents/Customerfiles/Advance%20Intelligence%20Group/autoscaling-demo/deploy-nginx.yaml",
+        "https://json.schemastore.org/yamllint.json": "file:///Users/xjiaqing/Library/CloudStorage/WorkDocsDrive-Documents/Customerfiles/Advance%20Intelligence%20Group/autoscaling-demo/2-karpenter-provisioner.yml"
+    }
+}
